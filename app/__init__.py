@@ -55,13 +55,13 @@ def create_app(config_name):
 			slack_uid = request.data.get('user_id')
 			slackhelper = SlackHelper()
 			slack_user_info = slackhelper.user_info(slack_uid)
-			# try:
-			actions = Actions(slackhelper, slack_user_info)
-			# except Exception as e:
-				# response_body = {'text': str(e)}
-				# response = jsonify(response_body)
-				# response.status_code = 200
-				# return response
+			try:
+				actions = Actions(slackhelper, slack_user_info)
+			except Exception as e:
+				response_body = {'text': str(e)}
+				response = jsonify(response_body)
+				response.status_code = 200
+				return response
 
 			if command_text[0] not in allowed_commands:
 				response_body = {'text': HELPER}
