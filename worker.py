@@ -10,10 +10,11 @@ def main():
          'id': 'a0123456789',
          },
       }
+   # user_info = None
    slackhelper = SlackHelper()
    actions = Actions(slackhelper, user_info=user_info)
    print(actions.register())
-   print(actions.unregister())
+   print(actions.subject(["", "day00"]))
    print(actions.unregister())
    # actions.notify_channel()
 

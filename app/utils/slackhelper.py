@@ -27,14 +27,15 @@ class SlackHelper:
 			as_user=False
 		)
 
-	def file_upload(self, file_content, file_name, file_type, title=None, ):
+	def file_upload(self, file_content, file_name, file_type, channel=None, title=None, ):
+		channel = self.slack_channel if channel is None
 		return self.slack_client.api_call(
 			"files.upload",
-			channels=self.slack_channel,
+			channels=channel,
 			content=file_content,
 			filename=file_name,
 			filetype=file_type,
-			initial_comment='{} Log File'.format(file_name),
+			initial_comment='{} subject'.format(file_name),
 			title=title
 		)
 
