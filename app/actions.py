@@ -36,6 +36,10 @@ class Actions:
 		text_detail = "subject"
 		return text_detail
 
+	def info(self):
+		text_detail = "info" + str(self.user_info)
+		return text_detail
+
 	def notify_channel(self):
 		text_detail = '*Task #TEST for cmaxime:*'
 		self.slackhelper.post_message_to_channel(text_detail)

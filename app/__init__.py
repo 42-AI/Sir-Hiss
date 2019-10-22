@@ -68,6 +68,9 @@ def create_app(config_name):
 
 			if command_text[0] == 'subject':
 				response_body = {'text': actions.subject(command_text)}
+			
+			if command_text[0] == 'info':
+				response_body = {'text': actions.info()}
 
 			if command_text[0] == 'help':
 				response_body = {'text': actions.help()}
