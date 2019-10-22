@@ -27,6 +27,7 @@ class Actions:
 			if tmp is not None:
 				self.user_name = tmp.get('name')
 				self.user_id = tmp.get('id')
+		########################
 
 	def help(self):
 		text_detail = HELPER_MSG
@@ -41,7 +42,7 @@ class Actions:
 		return text_detail
 
 	def subject(self, *args):
-		text_detail = "subject" #+ str(self.sheet.get_all_records())
+		text_detail = "subject" + str(self.sheet.get_all_records())
 		return text_detail
 
 	def info(self):
