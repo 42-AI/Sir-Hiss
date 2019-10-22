@@ -1,5 +1,5 @@
 from app.utils.gappshelper import GappsHelper
-from app.utils.schedulehelper import ScheduleHelper
+# from app.utils.schedulehelper import ScheduleHelper
 import time
 from datetime import datetime, date, timedelta
 from config import get_env
@@ -18,7 +18,7 @@ HELPER_MSG = """Available commands:
 class Actions:
     def __init__(self, slackhelper, user_info=None):
         self.gappshelper = GappsHelper()
-        self.schedule = ScheduleHelper()
+        # self.schedule = ScheduleHelper()
         self.sheet = self.gappshelper.open_sheet()
         self.user_info = user_info
         self.slackhelper = slackhelper
