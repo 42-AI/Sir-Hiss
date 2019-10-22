@@ -47,37 +47,34 @@ def create_app(config_name):
 	@app.route('/bootcamp_python', methods=['POST'])
 	def sirhiss():
 		command_text = request.data.get('text')
-		try:
-			if command_text is not None:
-				
-				command_text = command_text.split(' ')
+		if command_text is not None:
+			
+			command_text = command_text.split(' ')
 
-				slack_uid = request.data.get('user_id')
-				slackhelper = SlackHelper()
-				slack_user_info = slackhelper.user_info(slack_uid)
-				actions = Actions(slackhelper, slack_user_info)
-				
-				if command_text[0] not in allowed_commands:
-					response_body = {'text': HELPER}
-
-				if command_text[0] == 'register':
-					response_body = {'text': actions.register()}
-
-				if command_text[0] == 'unregister':
-					response_body = {'text': actions.unregister()}
-
-				if command_text[0] == 'subject':
-					response_body = {'text': actions.subject(command_text)}
-				
-				if command_text[0] == 'info':
-					response_body = {'text': actions.info()}
-
-				if command_text[0] == 'help':
-					response_body = {'text': actions.help()}
-			else:
+			slack_uid = request.data.get('user_id')
+			slackhelper = SlackHelper()
+			slack_user_info = slackhelper.user_info(slack_uid)
+			actions = Actions(slackhelper, slack_user_info)
+			
+			if command_text[0] not in allowed_commands:
 				response_body = {'text': HELPER}
-		except Exception as e:
-			response_body = {'text': str(e)}
+
+			if command_text[0] == 'register':
+				response_body = {'text': actions.register()}
+
+			if command_text[0] == 'unregister':
+				response_body = {'text': actions.unregister()}
+
+			if command_text[0] == 'subject':
+				response_body = {'text': actions.subject(command_text)}
+			
+			if command_text[0] == 'info':
+				response_body = {'text': actions.info()}
+
+			if command_text[0] == 'help':
+				response_body = {'text': actions.help()}
+		else:
+			response_body = {'text': HELPER}
 		response = jsonify(response_body)
 		response.status_code = 200
 		return response
