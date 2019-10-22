@@ -15,8 +15,8 @@ HELPER_MSG = """Available commands:
 
 class Actions:
 	def __init__(self, slackhelper, user_info=None):
-		# self.gappshelper = GappsHelper()
-		# self.sheet = self.gappshelper.open_sheet()
+		self.gappshelper = GappsHelper()
+		self.sheet = self.gappshelper.open_sheet()
 		self.user_info = user_info
 		self.slackhelper = slackhelper
 		if user_info is not None:
