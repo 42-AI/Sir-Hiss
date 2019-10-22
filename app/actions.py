@@ -113,13 +113,13 @@ class Actions:
             return "Error, bad args number"
         # if not self.schedule.can_fetchday(args[1]):
             # return "Not available now."
-        self.slackhelper.file_upload(
-            open('app/assets/AI42_RL_project.pdf', 'rb'),
-            'AI42_RL_project.pdf',
-            'pdf',
-            channel=self.user_id,
-            title="Test Post PDF",
-        )
+        # self.slackhelper.file_upload(
+        #     open('app/assets/AI42_RL_project.pdf', 'rb'),
+        #     'AI42_RL_project.pdf',
+        #     'pdf',
+        #     channel=self.user_id,
+        #     title="Test Post PDF",
+        # )
         return "There it is."
 
     @mandatoryUserInfo
