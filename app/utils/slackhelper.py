@@ -28,7 +28,8 @@ class SlackHelper:
 		)
 
 	def file_upload(self, file_content, file_name, file_type, channel=None, title=None, ):
-		channel = self.slack_channel if channel is None
+		if channel is None:
+			channel = self.slack_channel 
 		return self.slack_client.api_call(
 			"files.upload",
 			channels=channel,
