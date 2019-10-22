@@ -18,8 +18,13 @@ class GappsHelper:
 		keyfile_dict = {}
 		keyfile_dict["token_uri"] = get_env('SC_TOKEN_URI')
 		keyfile_dict["auth_uri"] = get_env('SC_AUTH_URI')
-		buff = json.loads('{"a": "' + get_env('SC_PRIVATE_KEY').replace("\n", "\\n") + '"}')
-		keyfile_dict["private_key"] = buff['a']
+		try:
+			tmp = get_env('SC_PRIVATE_KEY').replace("\n", "\\n")
+			buff = '{"a": "' + tmp + '"}'
+			buff = json.loads(buff)
+			keyfile_dict["private_key"] = buff['a']
+		except:
+			raise Exception('', buff)
 		try:
 			signer = crypt.Signer.from_string(keyfile_dict["private_key"])
 		except Exception as e:
