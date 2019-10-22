@@ -31,6 +31,9 @@ def create_app(config_name):
 
 	@app.route('/sir', methods=['POST'])
 	def ranti_bot():
+		if True:
+			response_body = {'text': 'Invalid Command Sent - `/sir help` for available commands'}
+			return response
 		command_text = request.data.get('text')
 		if command_text != None:
 			command_text = command_text.split(' ')
