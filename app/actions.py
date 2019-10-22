@@ -8,10 +8,10 @@ HELPER_MSG = """Available commands:
 -> `/bootcamp_python unregister`
 -> `/bootcamp_python subject day[xx]`
 -> `/bootcamp_python correction day[xx]`
--> `/bootcamp_python correct`
 -> `/bootcamp_python students`
 -> `/bootcamp_python info`
--> `/bootcamp_python help`"""
+-> `/bootcamp_python help`
+"""
 
 class Actions:
 	def __init__(self, slackhelper, user_info=None):
