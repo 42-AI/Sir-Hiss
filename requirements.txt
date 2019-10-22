@@ -6,3 +6,4 @@ Flask==1.1.1
 python-dotenv==0.10.3
 google_api_python_client==1.7.11
 gunicorn==19.0.0
+pytz==2019.1
