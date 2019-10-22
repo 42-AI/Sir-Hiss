@@ -27,13 +27,25 @@ class GappsHelper:
 			keyfile_dict["token_uri"] = get_env('SC_TOKEN_URI')
 		except Exception:
 			raise Exception('spam', 'SC_TOKEN_URI')
+		try:
+			keyfile_dict["client_email"] = get_env('SC_CLIENT_EMAIL')
+		except Exception:
+			raise Exception('spam', 'SC_CLIENT_EMAIL')
+		try:
+			keyfile_dict["private_key_id"] = get_env('SC_PRIVATE_KEY_ID')
+		except Exception:
+			raise Exception('spam', 'SC_PRIVATE_KEY_ID')
+		try:
+			keyfile_dict["client_id"] = get_env('SC_CLIENT_ID')
+		except Exception:
+			raise Exception('spam', 'SC_CLIENT_ID')
 		signer = crypt.Signer.from_string(keyfile_dict['private_key'])
 		credential = ServiceAccountCredentials(
-			get_env('SC_CLIENT_EMAIL'),
+			keyfile_dict["client_email"],
 			signer,
 			scopes=scopes,
-			private_key_id=get_env('SC_PRIVATE_KEY_ID'),
-			client_id=get_env('SC_CLIENT_ID'),
+			private_key_id=keyfile_dict["private_key_id"],
+			client_id=keyfile_dict["client_id"],
 			token_uri=keyfile_dict.get('token_uri', GOOGLE_TOKEN_URI),
             revoke_uri=keyfile_dict.get('revoke_uri', GOOGLE_REVOKE_URI),
 		)
