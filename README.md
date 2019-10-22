@@ -1,4 +1,4 @@
-# sir-hiss
+# Sir Hiss
 Slack bot for the bootcamp python
 
 ## Specs
