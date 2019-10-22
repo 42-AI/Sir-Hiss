@@ -112,13 +112,12 @@ class Actions:
         if len(args) != 2:
             return "Error, bad args number"
         # if not self.schedule.can_fetchday(args[1]):
-            # return "Not available now."
-        self.slackhelper.file_upload(
-            open('app/assets/AI42_RL_project.pdf', 'rb'),
+        # return "Not available now."
+        self.slackhelper.send_pdf(
+            'app/assets/AI42_RL_project.pdf',
             'AI42_RL_project.pdf',
-            'pdf',
             channel=self.user_id,
-            title="Test Post PDF",
+            title="RL Project",
         )
         return "There it is."
 

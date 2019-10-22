@@ -1,6 +1,6 @@
 from slackclient import SlackClient
 from config import get_env
-
+import requests
 
 class SlackHelper:
 
@@ -25,6 +25,18 @@ class SlackHelper:
 			username='turing',
 			parse='full',
 			as_user=False
+		)
+
+	def send_pdf(self, filepath, filename, channel=None, title=None, ):
+		if channel is None:
+			channel = self.slack_channel 
+		return self.slack_client.api_call(
+			'files.upload',
+			filename=filename,
+			channels=channel,
+			file=open(filepath,'rb'),
+			initial_comment='{} subject'.format(filename),
+			title=title
 		)
 
 	def file_upload(self, file_content, file_name, file_type, channel=None, title=None, ):

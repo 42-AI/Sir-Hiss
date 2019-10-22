@@ -6,8 +6,8 @@ from app.utils.slackhelper import SlackHelper
 def main():
    user_info = {
       'user': {
-         'name': 'maxime', 
-         'id': 'a0123456789',
+         'name': 'cmaxime', 
+         'id': 'UANKHQ6G1',
          },
       }
    # user_info = None
