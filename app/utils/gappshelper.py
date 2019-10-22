@@ -39,17 +39,26 @@ class GappsHelper:
 			keyfile_dict["client_id"] = get_env('SC_CLIENT_ID')
 		except Exception:
 			raise Exception('spam', 'SC_CLIENT_ID')
-		signer = crypt.Signer.from_string(keyfile_dict['private_key'])
-		credential = ServiceAccountCredentials(
-			keyfile_dict["client_email"],
-			signer,
-			scopes=scopes,
-			private_key_id=keyfile_dict["private_key_id"],
-			client_id=keyfile_dict["client_id"],
-			token_uri=keyfile_dict.get('token_uri', GOOGLE_TOKEN_URI),
-            revoke_uri=keyfile_dict.get('revoke_uri', GOOGLE_REVOKE_URI),
-		)
-		credential._private_key_pkcs8_pem = keyfile_dict['private_key']
+		try:
+			signer = crypt.Signer.from_string(keyfile_dict['private_key'])
+		except Exception:
+			raise Exception('spam', 'Signer')
+		try:
+			credential = ServiceAccountCredentials(
+				keyfile_dict["client_email"],
+				signer,
+				scopes=scopes,
+				private_key_id=keyfile_dict["private_key_id"],
+				client_id=keyfile_dict["client_id"],
+				token_uri=keyfile_dict.get('token_uri', GOOGLE_TOKEN_URI),
+				revoke_uri=keyfile_dict.get('revoke_uri', GOOGLE_REVOKE_URI),
+			)
+		except Exception:
+			raise Exception('spam', 'ServiceAccountCredentials')
+		try:
+			credential._private_key_pkcs8_pem = keyfile_dict['private_key']
+		except Exception:
+			raise Exception('spam', 'private_key')
 		return credential
 
 	def open_sheet(self):
