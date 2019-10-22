@@ -33,7 +33,10 @@ def create_app(config_name):
 	def ranti_bot():
 		if True:
 			response_body = {'text': 'Invalid Command Sent - `/sir help` for available commands'}
+			response = jsonify(response_body)
+			response.status_code = 200
 			return response
+			
 		command_text = request.data.get('text')
 		if command_text != None:
 			command_text = command_text.split(' ')
