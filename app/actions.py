@@ -12,17 +12,31 @@ class Actions:
 		self.slackhelper = slackhelper
 
 	def help(self):
-		print('Helper called')
 		text_detail = (
-			'*Task #TEST for cmaxime:* \n\n'
-			'Helper should print on /sir help'
+			'Available commands:\\n'
+			'	`/bootcamp_python register`\\n'
+			'	`/bootcamp_python unregister`\\n'
+			'	`/bootcamp_python subject day[xx]`\\n'
+			'	`/bootcamp_python correction day[xx]`\\n'
+			'	`/bootcamp_python correct`\\n'
+			'	`/bootcamp_python students`\\n'
+			'	`/bootcamp_python info`\\n'
+			'	`/bootcamp_python help`\\n'
 		)
 		return text_detail
 
-	def notify_channel(self):
-		print('Worker is running...')
-		while True:
-			text_detail = '*Task #TEST for cmaxime:* \n\n'
+	def register(self):
+		text_detail = "register"
+		return text_detail
 
-			self.slackhelper.post_message_to_channel(text_detail)
-			time.sleep(200)
+	def unregister(self):
+		text_detail = "unregister"
+		return text_detail
+
+	def subject(self, *args):
+		text_detail = "subject"
+		return text_detail
+
+	def notify_channel(self):
+		text_detail = '*Task #TEST for cmaxime:*'
+		self.slackhelper.post_message_to_channel(text_detail)
