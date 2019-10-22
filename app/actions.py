@@ -19,6 +19,8 @@ class Actions:
 		# self.sheet = self.gappshelper.open_sheet()
 		self.user_info = user_info
 		self.slackhelper = slackhelper
+		self.user_name = self.user_info['user']['name']
+		self.user_id = self.user_info['user']['id']
 
 	def help(self):
 		text_detail = HELPER_MSG
@@ -37,7 +39,10 @@ class Actions:
 		return text_detail
 
 	def info(self):
-		text_detail = "info" + str(self.user_info)
+		text_detail = "info about : {} with id:[{}]".format(
+				self.user_info['user']['name'],
+				self.user_info['user']['id'],
+			)
 		return text_detail
 
 	def notify_channel(self):
