@@ -15,12 +15,13 @@ HELPER_MSG = """Available commands:
 
 class Actions:
 	def __init__(self, slackhelper, user_info=None):
-		# self.gappshelper = GappsHelper()
-		# self.sheet = self.gappshelper.open_sheet()
+		self.gappshelper = GappsHelper()
+		self.sheet = self.gappshelper.open_sheet()
 		self.user_info = user_info
 		self.slackhelper = slackhelper
-		self.user_name = self.user_info['user']['name']
-		self.user_id = self.user_info['user']['id']
+		if user_info is not None:
+			self.user_name = self.user_info['user']['name']
+			self.user_id = self.user_info['user']['id']
 
 	def help(self):
 		text_detail = HELPER_MSG
@@ -35,7 +36,7 @@ class Actions:
 		return text_detail
 
 	def subject(self, *args):
-		text_detail = "subject"
+		text_detail = "subject" + str(self.sheet.get_all_records())
 		return text_detail
 
 	def info(self):
