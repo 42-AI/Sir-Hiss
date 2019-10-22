@@ -3,6 +3,15 @@ import time
 from datetime import datetime, date, timedelta
 from config import get_env
 
+HELPER_MSG = """Available commands:
+-> `/bootcamp_python register`
+-> `/bootcamp_python unregister`
+-> `/bootcamp_python subject day[xx]`
+-> `/bootcamp_python correction day[xx]`
+-> `/bootcamp_python correct`
+-> `/bootcamp_python students`
+-> `/bootcamp_python info`
+-> `/bootcamp_python help`"""
 
 class Actions:
 	def __init__(self, slackhelper, user_info=None):
@@ -12,15 +21,7 @@ class Actions:
 		self.slackhelper = slackhelper
 
 	def help(self):
-		text_detail = """Available commands:\\n
-`/bootcamp_python register`\\n
-`/bootcamp_python unregister`\\n
-`/bootcamp_python subject day[xx]`\\n
-`/bootcamp_python correction day[xx]`\\n
-`/bootcamp_python correct`\\n
-`/bootcamp_python students`\\n
-`/bootcamp_python info`\\n
-`/bootcamp_python help`\\n"""
+		text_detail = HELPER_MSG
 		return text_detail
 
 	def register(self):
