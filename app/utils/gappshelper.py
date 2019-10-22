@@ -15,9 +15,18 @@ class GappsHelper:
 
 	def credentials_from_env(self, scopes):
 		keyfile_dict = {}
-		keyfile_dict['private_key'] = get_env('SC_PRIVATE_KEY')
-		keyfile_dict["auth_uri"] = get_env('SC_AUTH_URI')
-		keyfile_dict["token_uri"] = get_env('SC_TOKEN_URI')
+		try:
+			keyfile_dict['private_key'] = get_env('SC_PRIVATE_KEY')
+		except Exception:
+			raise Exception('spam', 'SC_PRIVATE_KEY')
+		try:
+			keyfile_dict["auth_uri"] = get_env('SC_AUTH_URI')
+		except Exception:
+			raise Exception('spam', 'SC_AUTH_URI')
+		try:
+			keyfile_dict["token_uri"] = get_env('SC_TOKEN_URI')
+		except Exception:
+			raise Exception('spam', 'SC_TOKEN_URI')
 		signer = crypt.Signer.from_string(keyfile_dict['private_key'])
 		credential = ServiceAccountCredentials(
 			get_env('SC_CLIENT_EMAIL'),
