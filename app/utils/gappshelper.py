@@ -22,6 +22,7 @@ class GappsHelper:
 			signer = crypt.Signer.from_string(keyfile_dict["private_key"])
 		except Exception as e:
 			raise Exception('', 'Error')
+		print(keyfile_dict["private_key"])
 		credential = ServiceAccountCredentials(
 			get_env('SC_CLIENT_EMAIL'),
 			signer,
