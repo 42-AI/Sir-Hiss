@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+oauth2client = "==4.1.3"
+slackclient = "==1.0.7"
+gspread = "==3.1.0"
+python-dotenv = "==0.10.3"
+google-api-python-client = "==1.7.11"
+gunicorn = "==19.0.0"
+Flask-API = "==1.1"
+Flask = "==1.1.1"
+
+[requires]
+python_version = "3.7"
