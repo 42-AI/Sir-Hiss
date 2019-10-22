@@ -15,7 +15,10 @@ HELPER_MSG = """Available commands:
 
 class Actions:
 	def __init__(self, slackhelper, user_info=None):
-		self.gappshelper = GappsHelper()
+		try:
+			self.gappshelper = GappsHelper()
+		except Exception:
+			raise Exception('spam', 'At initiation....')
 		self.sheet = self.gappshelper.open_sheet()
 		self.user_info = user_info
 		self.slackhelper = slackhelper
