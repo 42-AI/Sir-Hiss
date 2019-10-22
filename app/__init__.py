@@ -5,6 +5,10 @@ from flask import request, jsonify
 from app.actions import Actions
 from re import match
 
+import sys
+import logging
+
+
 '''
 /sir help
 '''
@@ -21,6 +25,9 @@ def create_app(config_name):
 	app = FlaskAPI(__name__, instance_relative_config=False)
 	app.config.from_object(app_env[config_name])
 	app.config.from_pyfile('../config/env.py')
+
+	app.logger.addHandler(logging.StreamHandler(sys.stdout))
+	app.logger.setLevel(logging.ERROR)
 
 	@app.route('/sir', methods=['POST'])
 	def ranti_bot():
