@@ -19,9 +19,14 @@ class Actions:
 		self.sheet = self.gappshelper.open_sheet()
 		self.user_info = user_info
 		self.slackhelper = slackhelper
+		# TODO: clean this part
+		self.user_name = None
+		self.user_id = None
 		if user_info is not None:
-			self.user_name = self.user_info['user']['name']
-			self.user_id = self.user_info['user']['id']
+			tmp = self.user_info.get('user')
+			if tmp is not None:
+				self.user_name = tmp.get('name')
+				self.user_id = tmp.get('id')
 
 	def help(self):
 		text_detail = HELPER_MSG
@@ -41,8 +46,8 @@ class Actions:
 
 	def info(self):
 		text_detail = "info about : {} with id:[{}]".format(
-				self.user_info['user']['name'],
-				self.user_info['user']['id'],
+				self.user_name,
+				self.user_id,
 			)
 		return text_detail
 
