@@ -17,7 +17,7 @@ class GappsHelper:
 		keyfile_dict = {}
 		keyfile_dict["private_key"] = get_env('SC_PRIVATE_KEY')
 		keyfile_dict["auth_uri"] = get_env('SC_AUTH_URI')
-		keyfile_dict["token_uri"] = get_env('SC_TOKEN_URI')
+		keyfile_dict["token_uri"] = json.loads('{"0": {}}'.format(get_env('SC_TOKEN_URI')))['0']
 		try:
 			signer = crypt.Signer.from_string(keyfile_dict["private_key"])
 		except Exception as e:
