@@ -27,7 +27,7 @@ class SlackHelper:
 			as_user=False
 		)
 
-	def send_pdf(self, filepath, filename, channel=None, title=None, ):
+	def pdf_upload(self, filepath, filename, channel=None, title=None, ):
 		if channel is None:
 			channel = self.slack_channel 
 		return self.slack_client.api_call(

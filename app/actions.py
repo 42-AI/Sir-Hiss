@@ -94,18 +94,6 @@ class Actions:
         self.sheet.delete_row(index)
         return "You have been unregistered form the bootcamp python"
 
-    # my_file = {
-    #     'file' : ('/tmp/myfile.pdf', open('/tmp/myfile.pdf', 'rb'), 'pdf')
-    # }
-    # payload={
-    #     "filename":"myfile.pdf", 
-    #     "token":token, 
-    #     "channels":['#random'], 
-    # }
-    # r = requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
-
-    # file_upload(self, file_content, file_name, file_type, title=None, )
-
     @mandatoryUserInfo
     @mandatoryRegistered
     def subject(self, args):
@@ -113,7 +101,7 @@ class Actions:
             return "Error, bad args number"
         # if not self.schedule.can_fetchday(args[1]):
         # return "Not available now."
-        self.slackhelper.send_pdf(
+        self.slackhelper.pdf_upload(
             'app/assets/AI42_RL_project.pdf',
             'AI42_RL_project.pdf',
             channel=self.user_id,
