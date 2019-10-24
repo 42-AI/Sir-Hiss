@@ -3,6 +3,7 @@ from app.utils.schedulehelper import ScheduleHelper
 import time
 from datetime import datetime, date, timedelta
 from config import get_env
+import random
 
 HELPER_MSG = """Available commands:
 > `/bootcamp_python register`
@@ -61,6 +62,28 @@ class Actions:
             return f(self, *args, **kwargs)
 
         return wrapper
+
+    """ Check the formatting of the 'day' argument
+    """
+
+    def correctDayArgument(f):
+        def wrapper(self, *args, **kwargs):
+            days = [
+                'day00',
+                'day01',
+                'day02',
+                'day03',
+                'day04'
+            ]
+            command = args[0]
+            if len(command) != 2:
+                return "Incorrect number of arguments. Use one argument to indicate the day. E.g. day00"
+            if command[1] not in days:
+                return "Incorrect argument formatting. Here are the accepted day arguments: {}".format(days)
+            return f(self, *args, **kwargs)
+        
+        return wrapper
+
 
     def help(self):
         text_detail = HELPER_MSG
@@ -121,6 +144,55 @@ class Actions:
         )
         return "There it is."
 
+
+    @mandatoryUserInfo
+    @mandatoryRegistered
+    @correctDayArgument
+    def correction(self, args):
+        # see what is written in the day00 cell after pdf has been downloaded
+        day = args[1]
+        column = self.sheet.find(day).col
+        row = self.sheet.find(self.user_id).row
+        requester_cell = self.sheet.cell(row, column)
+
+        def find_partner(column):
+            waiting_cells = self.sheet.findall("WAITING")
+            random.shuffle(waiting_cells)
+            for cell in waiting_cells:
+                if cell.col == column:
+                    return cell
+            return None
+
+        if requester_cell.value == '':
+            partner_cell = find_partner(column)
+            if partner_cell is None:
+                requester_cell.value = 'WAITING'
+                self.sheet.update_cells([requester_cell])
+                return "You are on the waitlist.\nYou will be matched with the next bootcamper who requests a correction."
+            else:
+                partner_user_name = self.sheet.cell(partner_cell.row, 1).value
+                partner_cell.value = self.user_name
+                requester_cell.value = partner_user_name
+                self.sheet.update_cells([requester_cell, partner_cell])
+                # Start conversation with both users ###########################################################
+
+                return "You have been matched with {}. You can message each other to arrange a meeting and review each other's code!".format(partner_user_name)
+        elif requester_cell.value == 'WAITING':
+            return "You are already on the waiting list for corrections.\nYou will be matched with the next available corrector."
+        else:
+            return "You have already been matched with {} for your correction of {}".format(requester_cell.value, day)
+        
+       
+#===================================================
+
+    # @mandatoryRegistered
+    # @mandatoryUserInfo
+    # def mess_with_spreadsheet(self):
+    #     day = 'day01'
+    #     self.sheet.
+    #     return "Cell ({},{}) contains {}.".format(row, column, requester_cell.value)
+
+
     @mandatoryUserInfo
     @mandatoryRegistered
     def info(self):
@@ -132,3 +204,6 @@ class Actions:
     def notify_channel(self):
         text_detail = "*Task #TEST for cmaxime:*"
         self.slackhelper.post_message_to_channel(text_detail)
+
+
+        
