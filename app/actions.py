@@ -131,17 +131,23 @@ class Actions:
 
     @mandatoryUserInfo
     @mandatoryRegistered
+    @correctDayArgument
     def subject(self, args):
-        if len(args) != 2:
-            return "Error, bad args number"
         # if not self.schedule.can_fetchday(args[1]):
         # return "Not available now."
+        day = args[1]
+
+        ############### SEND ACTUAL PDF ############################
         self.slackhelper.send_pdf(
             'app/assets/AI42_RL_project.pdf',
             'AI42_RL_project.pdf',
             channel=self.user_id,
             title="RL Project",
         )
+        column = self.sheet.find(day).col
+        row = self.sheet.find(self.user_id).row
+        if self.sheet.cell(row, column).value == '':
+            self.sheet.update_cell(row, column, 'PDF')
         return "There it is."
 
 
