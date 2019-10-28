@@ -19,6 +19,10 @@ def main():
    # # actions.notify_channel()
    # print(actions.mess_with_spreadsheet())
    print(actions.correction(["", "day09"]))
+   print(actions.register())
+   print(actions.subject(["", "day00"]))
+   print(actions.unregister())
+   # actions.notify_channel()
 
 if __name__ == '__main__':
    main()

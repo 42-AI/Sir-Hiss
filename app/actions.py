@@ -1,20 +1,78 @@
+import time
+import random
+from datetime import datetime
+from datetime import date
+from datetime import timedelta
+
+from config import get_env
 from app.utils.gappshelper import GappsHelper
 from app.utils.schedulehelper import ScheduleHelper
-import time
-from datetime import datetime, date, timedelta
-from config import get_env
-import random
+
+"""Actions class Explainations
+
+This module list all the actions the Slack Bot can do related to the 
+/bootcamp_python slash command, is can be tested using the worker.py, 
+but the main purpose of the class Actions is to interact with a flask api 
+described in __init__.py.
+
+Actions functions:
+    help() : return a helper with a list of all available commands 
+    and a short description for each command.
+        * @return (str)
+
+    register() : register the user to the bootcamp python if it
+    is not yet registered, and if authorized by the schedule.
+    Check if the command has beed triggered by slack.
+        * @gsheet (insert user row on top)
+        * @return (str)
+
+    unregister() : unregister the user to the bootcamp python if it
+    is already registered, and if authorized by the schedule.
+    Check if the command has beed triggered by slack.
+        * @gsheet (remove user row)
+        * @return (str)
+
+    subject(args) : register a user to a day, if he is already
+    registed to the bootcamp, and not yet registered to the day,
+    and if authorized by the schedule.
+    Send aso the PDF of the day to the user via a private message.
+    Check if the command has beed triggered by slack.
+        * @gsheet (put PDF in user row at the day column)
+        * @return (str)
+    
+    correction(args) : register a user to a correction for a specific 
+    day, if he is already registed to the bootcamp, and also registered
+    to the day, but not yet registered for a correction on this day,
+    and also not yet attributed for a correction on this day.
+    Send aso the PDF of the day to the user via a private message.
+    Check if the command has beed triggered by slack.
+    It's also checkout if someone is also looking for a correction for the
+    same day, if yes, then connect the 2 users to schedule a correction and
+    add the user_login of each other to their day cell.
+    Send a private message to the 2 users if a match occured.
+        * @gsheet (put WAITING/user_login in user row at the day column)
+        * @return (str)
+
+    info() : return info about the current user related to the bootcamp_python
+    Check if the command has beed triggered by slack.
+        * @return (str)
+
+Available utils wrappers:
+
+
+Todo:
+    * For module TODOs
+
+"""
 
 HELPER_MSG = """Available commands:
 > `/bootcamp_python register`
 > `/bootcamp_python unregister`
 > `/bootcamp_python subject day[xx]`
 > `/bootcamp_python correction day[xx]`
-> `/bootcamp_python students`
 > `/bootcamp_python info`
 > `/bootcamp_python help`
 """
-
 
 class Actions:
     def __init__(self, slackhelper, user_info=None):
@@ -38,9 +96,6 @@ class Actions:
             else None
         )
 
-    """ Check if action has logged user_info
-	"""
-
     def mandatoryUserInfo(f):
         def wrapper(self, *args, **kwargs):
             if self.user_info is None:
@@ -48,9 +103,6 @@ class Actions:
             return f(self, *args, **kwargs)
 
         return wrapper
-
-    """ Check if the user is registered at the bootcamp
-	"""
 
     def mandatoryRegistered(f):
         def wrapper(self, *args, **kwargs):
@@ -62,9 +114,6 @@ class Actions:
             return f(self, *args, **kwargs)
 
         return wrapper
-
-    """ Check the formatting of the 'day' argument
-    """
 
     def correctDayArgument(f):
         def wrapper(self, *args, **kwargs):
@@ -84,13 +133,9 @@ class Actions:
         
         return wrapper
 
-
     def help(self):
         text_detail = HELPER_MSG
         return text_detail
-
-    """ Register a user if he is not yet registered to the bootcamp
-	"""
 
     @mandatoryUserInfo
     def register(self):
@@ -101,9 +146,6 @@ class Actions:
         # Update with user info
         self.sheet.insert_row([self.user_name, self.user_id], 2)
         return "You are now registered to the bootcamp python"
-
-    """ Unregister a user if he is registered to the bootcamp
-	"""
 
     @mandatoryUserInfo
     @mandatoryRegistered
@@ -116,18 +158,6 @@ class Actions:
         index += 2
         self.sheet.delete_row(index)
         return "You have been unregistered form the bootcamp python"
-
-    # my_file = {
-    #     'file' : ('/tmp/myfile.pdf', open('/tmp/myfile.pdf', 'rb'), 'pdf')
-    # }
-    # payload={
-    #     "filename":"myfile.pdf", 
-    #     "token":token, 
-    #     "channels":['#random'], 
-    # }
-    # r = requests.post("https://slack.com/api/files.upload", params=payload, files=my_file)
-
-    # file_upload(self, file_content, file_name, file_type, title=None, )
 
     @mandatoryUserInfo
     @mandatoryRegistered
@@ -143,7 +173,6 @@ class Actions:
             title="RL Project",
         )
         return "There it is."
-
 
     @mandatoryUserInfo
     @mandatoryRegistered
