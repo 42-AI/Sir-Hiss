@@ -61,7 +61,12 @@ Available utils wrappers:
 
 
 Todo:
-    * For module TODOs
+    * [ ]: help
+    * [x]: register
+    * [x]: unregister
+    * [ ]: subject
+    * [ ]: correction
+    * [ ]: info
 
 """
 
