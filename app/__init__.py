@@ -26,13 +26,12 @@ allowed_commands = [
 		'register',
 		'unregister',
 		'subject',
-		'correction',
 		'correct',
 		'info',
 		'help',
 	]
 
-HELPER = 'Invalid Command Sent - `/sir help` for available commands'
+HELPER = 'Invalid Command Sent - `/bootcamp_python help` for available commands'
 
 def create_app(config_name):
 
@@ -45,7 +44,7 @@ def create_app(config_name):
 
 	@app.route('/bootcamp_python', methods=['POST'])
 	def sirhiss():
-		response_body={'text': 'Error'}
+		response_body={'text': HELPER}
 		try:
 			command_text = request.data.get('text')
 			if command_text is not None:
@@ -69,7 +68,7 @@ def create_app(config_name):
 				if command_text[0] == 'subject':
 					response_body = {'text': actions.subject(command_text)}
 				
-				if command_text[0] == 'correction':
+				if command_text[0] == 'correct':
 					response_body = {'text': actions.correction(command_text)}
 				
 				if command_text[0] == 'info':
@@ -77,8 +76,6 @@ def create_app(config_name):
 
 				if command_text[0] == 'help':
 					response_body = {'text': actions.help()}
-			else:
-				response_body = {'text': HELPER}
 		except Exception as e:
 			response_body = {'text': str(e)}
 
