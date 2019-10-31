@@ -188,25 +188,12 @@ class Actions:
             return self.msg.not_registered
         index += 2
         self.sheet.delete_row(index)
-<<<<<<< HEAD
-        return "You have been unregistered form the bootcamp python"
-=======
         return self.msg.unregistration_success
->>>>>>> 39665a668caed180c1964be0aaedb8b0c6048070
 
     @mandatoryUserInfo
     @mandatoryRegistered
     @correctDayArgument
     def subject(self, args):
-<<<<<<< HEAD
-        if len(args) != 2:
-            return "Error, bad args number"
-        # if not self.schedule.can_fetchday(args[1]):
-        # return "Not available now."
-        self.slackhelper.pdf_upload(
-            'app/assets/AI42_RL_project.pdf',
-            'AI42_RL_project.pdf',
-=======
         if not self.schedule.can_fetchday(args[1]) and not environment.DEBUG:
             return self.msg.not_available
         day = args[1]
@@ -214,7 +201,6 @@ class Actions:
         self.slackhelper.send_pdf(
             "app/assets/{}".format(filename),
             filename,
->>>>>>> 39665a668caed180c1964be0aaedb8b0c6048070
             channel=self.user_id,
             title=day,
         )
