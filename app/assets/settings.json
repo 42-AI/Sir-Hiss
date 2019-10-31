@@ -36,7 +36,7 @@
             "err_nbarg": "Nombre incorrecte de parametres. N'utilise qu'un seul argument pour me dire a quel jour du bootcamp tu fait référencccce. E.g. day00",
             "err_fmtarg": "Erreur de formatage. Voicccccci les arguments que j'accccccepte: {}",
             "not_logged": "Error, no user logged",
-            "not_registered": "You are not yet regissstered to the Python Bootcamp. Firsssst register through the 'register' command.",
+            "not_registered": "Tu n'es pas encore inscrit au bootcamp python. Commencccceee par t'inscrire via la commande 'register'.",
             "allready_registered": "Tu es déjà inscrit au bootcamp. Tsssss....",
             "registration_success": "Tu es maintenant bien insssscrit au bootcamp. Congratssssss !!",
             "unregistration_success": "Tu as bien été désinsssscrit du bootcamp. A bientôt...",
