@@ -11,15 +11,12 @@ class SlackHelper:
 		self.slack_channel = get_env('SLACK_CHANNEL')
 
 	def post_message(self, msg, recipient):
-		def wrap(filename, msg, recipient):
-			self.slack_client.api_call(
-				"chat.postMessage",
-				channel=recipient,
-				text=msg,
-				as_user=True
-			)
-		t = threading.Thread(target=wrap, args=(msg, recipient))
-		t.start()
+		return self.slack_client.api_call(
+			"chat.postMessage",
+			channel=recipient,
+			text=msg,
+			as_user=True
+		)
 
 	def post_message_to_channel(self, msg):
 		return  self.slack_client.api_call(
