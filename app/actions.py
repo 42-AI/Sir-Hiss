@@ -170,7 +170,7 @@ class Actions:
     def register(self):
         # Check if the user is already registered
         for row in self.sheet.get_all_records():
-            if row["user_id"] == self.user_id and not environment.DEBUG:
+            if row["user_id"] == self.user_id: # and not environment.DEBUG:
                 return self.msg.allready_registered
         # Update with user info
         self.sheet.insert_row([self.user_name, self.user_id], 2)
