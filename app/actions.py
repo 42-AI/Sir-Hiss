@@ -272,7 +272,7 @@ class Actions:
                 'day03',
                 'day04'
             ]
-        text_detail = "Here is your current Bootcamp advancement information.\nUsername: {}\nID:[{}]\n{}".format(
+        text_detail = self.msg.info.format(
             self.user_name, self.user_id,
             "\n".join(["\t* {}:  {}".format(day, get_day_info(self.user_id, day)) for day in days])
         )

@@ -19,5 +19,6 @@ class LangHelper:
         self.already_inpool = data["already_inpool"]
         self.correctionmatch_success = data["correctionmatch_success"]
         self.already_matched = data["already_matched"]
+        self.info = data["info"]
         
         
