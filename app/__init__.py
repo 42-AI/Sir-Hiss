@@ -28,7 +28,6 @@ allowed_commands = [
 		'subject',
 		'correction',
 		'correct',
-		'students',
 		'info',
 		'help',
 	]
@@ -67,6 +66,9 @@ def create_app(config_name):
 
 			if command_text[0] == 'subject':
 				response_body = {'text': actions.subject(command_text)}
+			
+			if command_text[0] == 'correction':
+				response_body = {'text': actions.correction(command_text)}
 			
 			if command_text[0] == 'info':
 				response_body = {'text': actions.info()}
