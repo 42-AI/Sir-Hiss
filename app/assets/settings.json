@@ -29,7 +29,8 @@
             "already_inpool": "You are on the waiting lissssst.\nYou will be matched with the next bootcamper who requessssts a correction.",
             "correctionmatch_success": "You have been matched with {} for a mutual correction! I will get both of you in touch",
             "already_matched": "You have already been matched with {} for your correction of {}. You can reach out to ssssomeone else if you wish to receive more feedback.",
-            "info": "Here is your current Bootcamp advancement information.\nUsername: {}\nID:[{}]\n{}"
+            "info": "Here is your current Bootcamp advancement information.\nUsername: {}\nID:[{}]\n{}",
+		    "match_message": "Hey there! You two have been matched together for the correction of {}!\nThis is a mutual correction, so you will both review your patner's code and discussssss your solutions.\nBe very nice to your partner because I will only provide you with one for thisss day...\nI'll let you sschedule a meeting time..."
         },
         "fr": {
             "helper": "Hey sssssalut... Je suis iccccii pour t'aider tout du long de la journée de python... Tu peux m'appeler avec les commandes suivantes:\n```\t*/bootcamp_python register*       t'enregistre au bootcamp python\n\t*/bootcamp_python unregister*     te desinsssssscrit du bootcamp python (attention, cela supprimera tes données de maniere irreversible)\n\t*/bootcamp_python subject dayXX*  pour obtenir les sssssssujets des days (day00-04)\n\t*/bootcamp_python correct dayXX*  te fait matcher avec une perssssssonne pour vous corriger mutuellement (day00-04)\n\t*/bootcamp_python info*           pour obtenir tes informations personnel d'avancement du bootcamp```",
@@ -46,7 +47,8 @@
             "already_inpool": "Tu es déjà dans la liste d'attente.\nTu ssssssseras matché avec le prochain participant qui cherche une correctttttttttion.",
             "correctionmatch_success": "Tu as bien été matché avec {} pour vous corriger mutuelement! Je vais vous mettre en contact. Tssssss !",
             "already_matched": "Tu as déjà été matché avec {} pour la correcttttttion de {}. Mais tu peux toujours aller voir d'autres persssssssssonnes pour te faire evaluer.",
-            "info": "Voicccci tes informations d'avancement du bootcamp python.\nUsername: {}\nID:[{}]\n{}"
+            "info": "Voicccci tes informations d'avancement du bootcamp python.\nUsername: {}\nID:[{}]\n{}",
+		    "match_message": "Sssalut! Je vous ai matché ensssemble pour le correctttion du {}!\nC'est une correctttion mutuel, donc vous allez tout les deux review votre pair et dissscuter .\nsoyez sympa avec votre partenaire car c'est le ssseul que nous vous attribuerons pour corriger ce day.\nJe vous laissse voir entre vous pour fixé un créneau de correctttion..."
         }
     }
 }

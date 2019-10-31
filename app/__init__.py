@@ -79,6 +79,7 @@ def create_app(config_name):
 		except Exception as e:
 			response_body = {'text': str(e)}
 
+		
 		response_body['ok'] = True
 		response = jsonify(response_body)
 		response.status_code = 200

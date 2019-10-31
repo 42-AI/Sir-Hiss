@@ -20,5 +20,6 @@ class LangHelper:
         self.correctionmatch_success = data["correctionmatch_success"]
         self.already_matched = data["already_matched"]
         self.info = data["info"]
+        self.match_message = data["match_message"]
         
         
