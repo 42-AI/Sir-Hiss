@@ -76,7 +76,7 @@ Todo:
 
 """
 
-HELPER_MSG = """Available commands:
+MSG_HELPER = """Available commands:
 > `/bootcamp_python register`
 > `/bootcamp_python unregister`
 > `/bootcamp_python subject day[xx]`
@@ -109,25 +109,28 @@ class Actions:
 
     def mandatoryUserInfo(f):
         def wrapper(self, *args, **kwargs):
+            MSG_NOT_LOGGED = "Error, no user logged"
             if self.user_info is None:
-                return "Error, no user logged"
+                return MSG_NOT_LOGGED
             return f(self, *args, **kwargs)
 
         return wrapper
 
     def mandatoryRegistered(f):
         def wrapper(self, *args, **kwargs):
+            MSG_NOT_REGISTERED = "You are not yet regissstered to the Python Bootcamp. Firsssst register through the 'register' command."
             for index, row in enumerate(self.sheet.get_all_records()):
                 if row["user_id"] == self.user_id:
                     break
             else:
-                return "You are not yet regissstered to the Python Bootcamp. Firsssst register through the 'register' command."
+                return MSG_NOT_REGISTERED
             return f(self, *args, **kwargs)
 
         return wrapper
 
     def correctDayArgument(f):
         def wrapper(self, *args, **kwargs):
+            MSG_ERR_DAYARG = "Incorrect number of argumentssss. Use only one argument to tell me what bootcamp day you are talking about. E.g. day00"
             days = [
                 'day00',
                 'day01',
@@ -137,7 +140,7 @@ class Actions:
             ]
             command = args[0]
             if len(command) != 2:
-                return "Incorrect number of argumentssss. Use only one argument to tell me what bootcamp day you are talking about. E.g. day00"
+                return MSG_ERR_DAYARG
             if command[1] not in days:
                 return "Incorrect formatting. Here are the accepted argumentssss: {}".format(days)
             return f(self, *args, **kwargs)
@@ -145,7 +148,7 @@ class Actions:
         return wrapper
 
     def help(self):
-        text_detail = HELPER_MSG
+        MSG_text_detail = HELPER
         return text_detail
 
     @mandatoryUserInfo
