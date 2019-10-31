@@ -7,6 +7,7 @@ from datetime import timedelta
 from config import get_env
 from app.utils.gappshelper import GappsHelper
 from app.utils.schedulehelper import ScheduleHelper
+from app.utils.langhelper import LangHelper
 
 from config import get_env
 from config.env import app_env
@@ -76,14 +77,67 @@ Todo:
 
 """
 
-MSG_HELPER = """Available commands:
-> `/bootcamp_python register`
-> `/bootcamp_python unregister`
-> `/bootcamp_python subject day[xx]`
-> `/bootcamp_python correction day[xx]`
-> `/bootcamp_python info`
-> `/bootcamp_python help`
-"""
+# MSG_HELPER = "HEY there... I am here to help you along your Python journey... You can summon me with one of the following commands:\n\
+# \t*/bootcamp_python register*       register to the Bootcamp\n\
+# \t*/bootcamp_python unregister*     unregister from the Bootcamp (your data will be lost)\n\
+# \t*/bootcamp_python subject dayXX*  request the subject for dayXX (day00-04)\n\
+# \t*/bootcamp_python correct dayXX*  ask for a correction on dayXX (day00-04)\n\
+# \t*/bootcamp_python info*           get information on your current Bootcamp advancement"
+
+# MSG_ERR_NBARG = "Incorrect number of argumentssss. Use only one argument to tell me what bootcamp day you are talking about. E.g. day00"
+# MSG_ERR_FMTARG = "Incorrect formatting. Here are the accepted argumentssss: {}"
+# MSG_NOT_LOGGED = "Error, no user logged"
+
+# MSG_NOT_REGISTERED = "You are not yet regissstered to the Python Bootcamp. Firsssst register through the 'register' command."
+# MSG_ALLREADY_REGISTERED = "You are already registered. Tsssss...."
+
+# MSG_REGISTRATION_SUCCESS = "You are now registered to the Python bootcamp. Congratssssss"
+# MSG_UNREGISTRATION_SUCCESS = "You have been unregistered from the Python Bootcamp. Ssssee you next time..."
+
+# MSG_NOT_AVAILABLE = "Not available now."
+# MSG_SUBJECT_SUCCESS = "There it is."
+# MSG_NOTDWL_SUBJECT = "You may only be corrected on days that you have completed. First download the {} ssssubject and work through the exercises."
+# MSG_ALREADY_INPOOL = "You are on the waiting lissssst.\nYou will be matched with the next bootcamper who requessssts a correction."
+# MSG_CORRECTIONMATCH_SUCCESS = "You have been matched with {} for a mutual correction! I will get both of you in touch"
+# MSG_ALREADY_MATCHED = "You have already been matched with {} for your correction of {}. You can reach out to ssssomeone else if you wish to receive more feedback."
+
+def mandatoryUserInfo(f):
+    def wrapper(self, *args, **kwargs):
+        if self.user_info is None:
+            return self.msg.not_logged
+        return f(self, *args, **kwargs)
+
+    return wrapper
+
+def mandatoryRegistered(f):
+    def wrapper(self, *args, **kwargs):
+        for row in self.sheet.get_all_records():
+            if row["user_id"] == self.user_id:
+                break
+        else:
+            return self.msg.not_registered
+        return f(self, *args, **kwargs)
+
+    return wrapper
+
+def correctDayArgument(f):
+    def wrapper(self, *args, **kwargs):
+        days = [
+            'day00',
+            'day01',
+            'day02',
+            'day03',
+            'day04'
+        ]
+        command = args[0]
+        if len(command) != 2:
+            return self.msg.err_nbarg
+        if command[1] not in days:
+            return self.msg.err_fmtarg.format(days)
+        return f(self, *args, **kwargs)
+    
+    return wrapper
+
 
 class Actions:
     def __init__(self, slackhelper, user_info=None):
@@ -92,6 +146,7 @@ class Actions:
         self.sheet = self.gappshelper.open_sheet()
         self.user_info = user_info
         self.slackhelper = slackhelper
+        self.msg = LangHelper('fr')
         self.user_name = (
             user_info["user"]["name"]
             if user_info is not None
@@ -107,48 +162,8 @@ class Actions:
             else None
         )
 
-    def mandatoryUserInfo(f):
-        def wrapper(self, *args, **kwargs):
-            MSG_NOT_LOGGED = "Error, no user logged"
-            if self.user_info is None:
-                return MSG_NOT_LOGGED
-            return f(self, *args, **kwargs)
-
-        return wrapper
-
-    def mandatoryRegistered(f):
-        def wrapper(self, *args, **kwargs):
-            MSG_NOT_REGISTERED = "You are not yet regissstered to the Python Bootcamp. Firsssst register through the 'register' command."
-            for index, row in enumerate(self.sheet.get_all_records()):
-                if row["user_id"] == self.user_id:
-                    break
-            else:
-                return MSG_NOT_REGISTERED
-            return f(self, *args, **kwargs)
-
-        return wrapper
-
-    def correctDayArgument(f):
-        def wrapper(self, *args, **kwargs):
-            MSG_ERR_DAYARG = "Incorrect number of argumentssss. Use only one argument to tell me what bootcamp day you are talking about. E.g. day00"
-            days = [
-                'day00',
-                'day01',
-                'day02',
-                'day03',
-                'day04'
-            ]
-            command = args[0]
-            if len(command) != 2:
-                return MSG_ERR_DAYARG
-            if command[1] not in days:
-                return "Incorrect formatting. Here are the accepted argumentssss: {}".format(days)
-            return f(self, *args, **kwargs)
-        
-        return wrapper
-
     def help(self):
-        MSG_text_detail = HELPER
+        text_detail = self.msg.helper
         return text_detail
 
     @mandatoryUserInfo
@@ -156,29 +171,31 @@ class Actions:
         # Check if the user is already registered
         for row in self.sheet.get_all_records():
             if row["user_id"] == self.user_id and not environment.DEBUG:
-                return "You are already registered. Tsssss...."
+                return self.msg.allready_registered
         # Update with user info
         self.sheet.insert_row([self.user_name, self.user_id], 2)
-        return "You are now registered to the Python bootcamp. Congratssssss"
+        return self.msg.registration_success
 
     @mandatoryUserInfo
     @mandatoryRegistered
     def unregister(self):
+        if not self.schedule.can_register():
+            return self.msg.not_available
         for index, row in enumerate(self.sheet.get_all_records()):
             if row["user_id"] == self.user_id:
                 break
         else:
-            return "You are already registered. Tsssss...."
+            return self.msg.not_registered
         index += 2
         self.sheet.delete_row(index)
-        return "You have been unregistered from the Python Bootcamp. Ssssee you next time..."
+        return self.msg.unregistration_success
 
     @mandatoryUserInfo
     @mandatoryRegistered
     @correctDayArgument
     def subject(self, args):
         if not self.schedule.can_fetchday(args[1]) and not environment.DEBUG:
-            return "Not available now."
+            return self.msg.not_available
         day = args[1]
         filename = "{}.pdf".format(day)
         self.slackhelper.send_pdf(
@@ -191,7 +208,7 @@ class Actions:
         row = self.sheet.find(self.user_id).row
         if self.sheet.cell(row, column).value == '':
             self.sheet.update_cell(row, column, 'PDF')
-        return "There it is."
+        return self.msg.subject_success
 
     @mandatoryUserInfo
     @mandatoryRegistered
@@ -211,13 +228,13 @@ class Actions:
             return None
 
         if requester_cell.value == '':
-            return "You may only be corrected on days that you have completed. First download the {} ssssubject and work through the exercises.".format(day)
+            return self.msg.notdwl_subject.format(day)
         elif requester_cell.value == 'PDF' or requester_cell.value == 'WAITING':
             partner_cell = find_partner(column, row)
             if partner_cell is None:
                 requester_cell.value = 'WAITING'
                 self.sheet.update_cells([requester_cell])
-                return "You are on the waiting lissssst.\nYou will be matched with the next bootcamper who requessssts a correction."
+                return self.msg.already_inpool
             else:
                 partner_user_name = self.sheet.cell(partner_cell.row, 1).value
                 partner_user_id = self.sheet.cell(partner_cell.row, 2).value
@@ -227,9 +244,9 @@ class Actions:
                 post_response = self.slackhelper.introduce_correctors(self.user_id, partner_user_id, day)
                 if post_response['ok'] is False:
                     return post_response['error']
-                return "You have been matched with {} for a mutual correction! I will get both of you in touch".format(partner_user_name)
+                return self.msg.correctionmatch_success.format(partner_user_name)
         else:
-            return "You have already been matched with {} for your correction of {}. You can reach out to ssssomeone else if you wish to receive more feedback.".format(requester_cell.value, day)
+            return self.msg.already_matched.format(requester_cell.value, day)
 
 
     @mandatoryUserInfo
@@ -260,16 +277,6 @@ class Actions:
             "\n".join(["\t* {}:  {}".format(day, get_day_info(self.user_id, day)) for day in days])
         )
         return text_detail
-
-    def help(self):
-        message = "HEY there... I am here to help you along your Python journey... You can summon me with one of the following commands:\n\
-            */bootcamp_python register*       register to the Bootcamp\n\
-            */bootcamp_python unregister*     unregister from the Bootcamp (your data will be lost)\n\
-            */bootcamp_python subject dayXX*  request the subject for dayXX (day00-04)\n\
-            */bootcamp_python correct dayXX*  ask for a correction on dayXX (day00-04)\n\
-            */bootcamp_python info*           get information on your current Bootcamp advancement"
-        return message
-
 
     def notify_channel(self):
         text_detail = "*Task #TEST for cmaxime:*"
