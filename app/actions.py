@@ -277,7 +277,8 @@ class Actions:
             self.user_name, self.user_id,
             "\n".join(["\t* {}:  {}".format(day, get_day_info(self.user_id, day)) for day in days])
         )
-        return text_detail
+        self.slackhelper.post_message(self, text_detail, self.user_id)
+        return "ok"
 
     def notify_channel(self):
         text_detail = "*Task #TEST for cmaxime:*"

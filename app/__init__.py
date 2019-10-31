@@ -45,7 +45,7 @@ def create_app(config_name):
 	@app.route('/bootcamp_python', methods=['POST'])
 	def sirhiss():
 		response_body={'text': HELPER}
-		# try:
+
 		command_text = request.data.get('text')
 		if command_text is not None:
 			
@@ -76,11 +76,7 @@ def create_app(config_name):
 
 			if command_text[0] == 'help':
 				response_body = {'text': actions.help()}
-		# except Exception as e:
-		# 	response_body = {'text': str(e)}
 
-
-		response_body['ok'] = True
 		response = jsonify(response_body)
 		response.status_code = 200
 		return response
