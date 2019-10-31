@@ -15,7 +15,7 @@
     },
     "lang": {
         "en": {
-            "helper": "HEY there... I am here to help you along your Python journey... You can summon me with one of the following commands:\n\t*/bootcamp_python register*       register to the Bootcamp\n\t*/bootcamp_python unregister*     unregister from the Bootcamp (your data will be lost)\n\t*/bootcamp_python subject dayXX*  request the subject for dayXX (day00-04)\n\t*/bootcamp_python correct dayXX*  ask for a correction on dayXX (day00-04)\n\t*/bootcamp_python info*           get information on your current Bootcamp advancement",
+            "helper": "HEY there... I am here to help you along your Python journey... You can summon me with one of the following commands:\n\t```*/bootcamp_python register*       register to the Bootcamp\n\t*/bootcamp_python unregister*     unregister from the Bootcamp (your data will be lost)\n\t*/bootcamp_python subject dayXX*  request the subject for dayXX (day00-04)\n\t*/bootcamp_python correct dayXX*  ask for a correction on dayXX (day00-04)\n\t*/bootcamp_python info*           get information on your current Bootcamp advancement```",
             "err_nbarg": "Incorrect number of argumentssss. Use only one argument to tell me what bootcamp day you are talking about. E.g. day00",
             "err_fmtarg": "Incorrect formatting. Here are the accepted argumentssss: {}",
             "not_logged": "Error, no user logged",
