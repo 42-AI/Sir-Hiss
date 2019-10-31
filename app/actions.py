@@ -3,7 +3,6 @@ import random
 from datetime import datetime
 from datetime import date
 from datetime import timedelta
-import threading
 
 from config import get_env
 from app.utils.gappshelper import GappsHelper
@@ -254,35 +253,31 @@ class Actions:
     @mandatoryUserInfo
     @mandatoryRegistered
     def info(self):
-        def wrap():
-            def get_day_info(user_id, day):
-                row = self.sheet.find(self.user_id).row
-                column = self.sheet.find(day).col
-                status = self.sheet.cell(row, column).value
-                if status == '':
-                    return "Not started"
-                elif status == 'PDF':
-                    return "Started"
-                elif status == 'WAITING':
-                    return "Waiting for correction"
-                else:
-                    return "Corrected by {}".format(status)
-            
-            days = [
-                    'day00',
-                    'day01',
-                    'day02',
-                    'day03',
-                    'day04'
-                ]
-            text_detail = self.msg.info.format(
-                self.user_name, self.user_id,
-                "\n".join(["\t* {}:  {}".format(day, get_day_info(self.user_id, day)) for day in days])
-            )
-            self.slackhelper.post_message(text_detail, self.user_id)
-        t = threading.Thread(target=wrap)
-        t.start()
-        return "ok"
+        def get_day_info(user_id, day):
+            row = self.sheet.find(self.user_id).row
+            column = self.sheet.find(day).col
+            status = self.sheet.cell(row, column).value
+            if status == '':
+                return "Not started"
+            elif status == 'PDF':
+                return "Started"
+            elif status == 'WAITING':
+                return "Waiting for correction"
+            else:
+                return "Corrected by {}".format(status)
+        
+        days = [
+                'day00',
+                'day01',
+                'day02',
+                'day03',
+                'day04'
+            ]
+        text_detail = self.msg.info.format(
+            self.user_name, self.user_id,
+            "\n".join(["\t* {}:  {}".format(day, get_day_info(self.user_id, day)) for day in days])
+        )
+        return text_detail
 
     def notify_channel(self):
         text_detail = "*Task #TEST for cmaxime:*"
