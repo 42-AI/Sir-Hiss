@@ -281,7 +281,7 @@ class Actions:
             )
             self.slackhelper.post_message(self, text_detail, self.user_id)
         t = threading.Thread(target=wrap)
-		t.start()
+        t.start()
         return "ok"
 
     def notify_channel(self):
