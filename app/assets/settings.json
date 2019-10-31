@@ -15,7 +15,7 @@
     },
     "lang": {
         "en": {
-            "helper": "HEY there... I am here to help you along your Python journey... You can summon me with one of the following commands:\n\t```*/bootcamp_python register*       register to the Bootcamp\n\t*/bootcamp_python unregister*     unregister from the Bootcamp (your data will be lost)\n\t*/bootcamp_python subject dayXX*  request the subject for dayXX (day00-04)\n\t*/bootcamp_python correct dayXX*  ask for a correction on dayXX (day00-04)\n\t*/bootcamp_python info*           get information on your current Bootcamp advancement```",
+            "helper": "HEY there... I am here to help you along your Python journey... You can summon me with one of the following commands:\n```\t*/bootcamp_python register*       register to the Bootcamp\n\t*/bootcamp_python unregister*     unregister from the Bootcamp (your data will be lost)\n\t*/bootcamp_python subject dayXX*  request the subject for dayXX (day00-04)\n\t*/bootcamp_python correct dayXX*  ask for a correction on dayXX (day00-04)\n\t*/bootcamp_python info*           get information on your current Bootcamp advancement```",
             "err_nbarg": "Incorrect number of argumentssss. Use only one argument to tell me what bootcamp day you are talking about. E.g. day00",
             "err_fmtarg": "Incorrect formatting. Here are the accepted argumentssss: {}",
             "not_logged": "Error, no user logged",
@@ -32,7 +32,7 @@
             "info": "Here is your current Bootcamp advancement information.\nUsername: {}\nID:[{}]\n{}"
         },
         "fr": {
-            "helper": "Hey sssssalut... Je suis iccccii pour t'aider tout du long de la journée de python... Tu peux m'appeler avec les commandes suivantes:\n\t*/bootcamp_python register*       t'enregistre au bootcamp python\n\t*/bootcamp_python unregister*     te desinsssssscrit du bootcamp python (attention, cela supprimera tes données de maniere irreversible)\n\t*/bootcamp_python subject dayXX*  pour obtenir les sssssssujets des days (day00-04)\n\t*/bootcamp_python correct dayXX*  te fait matcher avec une perssssssonne pour vous corriger mutuellement (day00-04)\n\t*/bootcamp_python info*           pour obtenir tes informations personnel d'avancement du bootcamp",
+            "helper": "Hey sssssalut... Je suis iccccii pour t'aider tout du long de la journée de python... Tu peux m'appeler avec les commandes suivantes:\n```\t*/bootcamp_python register*       t'enregistre au bootcamp python\n\t*/bootcamp_python unregister*     te desinsssssscrit du bootcamp python (attention, cela supprimera tes données de maniere irreversible)\n\t*/bootcamp_python subject dayXX*  pour obtenir les sssssssujets des days (day00-04)\n\t*/bootcamp_python correct dayXX*  te fait matcher avec une perssssssonne pour vous corriger mutuellement (day00-04)\n\t*/bootcamp_python info*           pour obtenir tes informations personnel d'avancement du bootcamp```",
             "err_nbarg": "Nombre incorrecte de parametres. N'utilise qu'un seul argument pour me dire a quel jour du bootcamp tu fait référencccce. E.g. day00",
             "err_fmtarg": "Erreur de formatage. Voicccccci les arguments que j'accccccepte: {}",
             "not_logged": "Error, no user logged",
