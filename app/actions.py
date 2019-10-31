@@ -198,7 +198,7 @@ class Actions:
             return self.msg.not_available
         day = args[1]
         filename = "{}.pdf".format(day)
-        self.slackhelper.send_pdf(
+        self.slackhelper.pdf_upload(
             "app/assets/{}".format(filename),
             filename,
             channel=self.user_id,
