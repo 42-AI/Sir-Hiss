@@ -4,8 +4,6 @@ from datetime import datetime
 from datetime import date
 from datetime import timedelta
 
-import threading
-
 from config import get_env
 from app.utils.gappshelper import GappsHelper
 from app.utils.schedulehelper import ScheduleHelper
@@ -201,15 +199,12 @@ class Actions:
             return self.msg.not_available
         day = args[1]
         filename = "{}.pdf".format(day)
-        def wrap(filename, day):
-            self.slackhelper.pdf_upload(
-                "app/assets/{}".format(filename),
-                filename,
-                channel=self.user_id,
-                title=day,
-            )
-        t = threading.Thread(target=wrap, args=(filename, day))
-        t.start()
+        self.slackhelper.pdf_upload(
+            "app/assets/{}".format(filename),
+            filename,
+            channel=self.user_id,
+            title=day,
+        )
         column = self.sheet.find(day).col
         row = self.sheet.find(self.user_id).row
         if self.sheet.cell(row, column).value == '':

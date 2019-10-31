@@ -1,6 +1,7 @@
 from slackclient import SlackClient
 from config import get_env
 import requests
+import threading
 
 class SlackHelper:
 
@@ -29,15 +30,18 @@ class SlackHelper:
 
 	def pdf_upload(self, filepath, filename, channel=None, title=None, ):
 		if channel is None:
-			channel = self.slack_channel 
-		return self.slack_client.api_call(
-			'files.upload',
-			filename=filename,
-			channels=channel,
-			file=open(filepath,'rb'),
-			initial_comment='{} subject'.format(filename),
-			title=title
-		)
+			channel = self.slack_channel
+		def wrap(filename, channel, filepath, title):
+			self.slack_client.api_call(
+				'files.upload',
+				filename=filename,
+				channels=channel,
+				file=open(filepath,'rb'),
+				initial_comment='{} subject'.format(filename),
+				title=title
+			)
+		t = threading.Thread(target=wrap, args=(filename, channel, filepath, title))
+		t.start()
 
 	def file_upload(self, file_content, file_name, file_type, channel=None, title=None, ):
 		if channel is None:
