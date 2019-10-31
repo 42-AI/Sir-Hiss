@@ -45,41 +45,41 @@ def create_app(config_name):
 	@app.route('/bootcamp_python', methods=['POST'])
 	def sirhiss():
 		response_body={'text': HELPER}
-		try:
-			command_text = request.data.get('text')
-			if command_text is not None:
-				
-				command_text = command_text.split(' ')
+		# try:
+		command_text = request.data.get('text')
+		if command_text is not None:
+			
+			command_text = command_text.split(' ')
 
-				slack_uid = request.data.get('user_id')
-				slackhelper = SlackHelper()
-				slack_user_info = slackhelper.user_info(slack_uid)
-				actions = Actions(slackhelper, slack_user_info)
-				
-				if command_text[0] not in allowed_commands:
-					response_body = {'text': HELPER}
+			slack_uid = request.data.get('user_id')
+			slackhelper = SlackHelper()
+			slack_user_info = slackhelper.user_info(slack_uid)
+			actions = Actions(slackhelper, slack_user_info)
+			
+			if command_text[0] not in allowed_commands:
+				response_body = {'text': HELPER}
 
-				if command_text[0] == 'register':
-					response_body = {'text': actions.register()}
+			if command_text[0] == 'register':
+				response_body = {'text': actions.register()}
 
-				if command_text[0] == 'unregister':
-					response_body = {'text': actions.unregister()}
+			if command_text[0] == 'unregister':
+				response_body = {'text': actions.unregister()}
 
-				if command_text[0] == 'subject':
-					response_body = {'text': actions.subject(command_text)}
-				
-				if command_text[0] == 'correct':
-					response_body = {'text': actions.correction(command_text)}
-				
-				if command_text[0] == 'info':
-					response_body = {'text': actions.info()}
+			if command_text[0] == 'subject':
+				response_body = {'text': actions.subject(command_text)}
+			
+			if command_text[0] == 'correct':
+				response_body = {'text': actions.correction(command_text)}
+			
+			if command_text[0] == 'info':
+				response_body = {'text': actions.info()}
 
-				if command_text[0] == 'help':
-					response_body = {'text': actions.help()}
-		except Exception as e:
-			response_body = {'text': str(e)}
+			if command_text[0] == 'help':
+				response_body = {'text': actions.help()}
+		# except Exception as e:
+		# 	response_body = {'text': str(e)}
 
-		
+
 		response_body['ok'] = True
 		response = jsonify(response_body)
 		response.status_code = 200
