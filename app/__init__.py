@@ -45,6 +45,7 @@ def create_app(config_name):
 
 	@app.route('/bootcamp_python', methods=['POST'])
 	def sirhiss():
+		response_body={'text': 'Error'}
 		try:
 			command_text = request.data.get('text')
 			if command_text is not None:
