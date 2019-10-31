@@ -4,6 +4,8 @@ from datetime import datetime
 from datetime import date
 from datetime import timedelta
 
+import threading
+
 from config import get_env
 from app.utils.gappshelper import GappsHelper
 from app.utils.schedulehelper import ScheduleHelper
@@ -190,6 +192,7 @@ class Actions:
         self.sheet.delete_row(index)
         return self.msg.unregistration_success
 
+
     @mandatoryUserInfo
     @mandatoryRegistered
     @correctDayArgument
@@ -198,12 +201,15 @@ class Actions:
             return self.msg.not_available
         day = args[1]
         filename = "{}.pdf".format(day)
-        self.slackhelper.pdf_upload(
-            "app/assets/{}".format(filename),
-            filename,
-            channel=self.user_id,
-            title=day,
-        )
+        def wrap(filename, day):
+            self.slackhelper.pdf_upload(
+                "app/assets/{}".format(filename),
+                filename,
+                channel=self.user_id,
+                title=day,
+            )
+        t = threading.Thread(target=wrap, args=(filename, day))
+        t.start()
         column = self.sheet.find(day).col
         row = self.sheet.find(self.user_id).row
         if self.sheet.cell(row, column).value == '':
@@ -241,9 +247,9 @@ class Actions:
                 partner_cell.value = self.user_name
                 requester_cell.value = partner_user_name
                 self.sheet.update_cells([requester_cell, partner_cell])
-                post_response = self.slackhelper.introduce_correctors(self.user_id, partner_user_id, day)
-                if post_response['ok'] is False:
-                    return post_response['error']
+                resp = self.slackhelper.introduce_correctors(self.user_id, partner_user_id, day)
+                if resp['ok'] is False:
+                    return resp['error']
                 return self.msg.correctionmatch_success.format(partner_user_name)
         else:
             return self.msg.already_matched.format(requester_cell.value, day)
