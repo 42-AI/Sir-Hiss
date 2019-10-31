@@ -198,12 +198,12 @@ class Actions:
             return self.msg.not_available
         day = args[1]
         filename = "{}.pdf".format(day)
-        self.slackhelper.pdf_upload(
-            "app/assets/{}".format(filename),
-            filename,
-            channel=self.user_id,
-            title=day,
-        )
+        # self.slackhelper.pdf_upload(
+        #     "app/assets/{}".format(filename),
+        #     filename,
+        #     channel=self.user_id,
+        #     title=day,
+        # )
         column = self.sheet.find(day).col
         row = self.sheet.find(self.user_id).row
         if self.sheet.cell(row, column).value == '':
