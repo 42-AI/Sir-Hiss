@@ -73,7 +73,7 @@ Todo:
     * [x]: subject
     * [x]: correction
     * [x]: info
-    * [ ]: French text
+    * [ ]: French text -> match success double message
 
 """
 
