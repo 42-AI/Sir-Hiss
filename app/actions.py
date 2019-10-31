@@ -279,7 +279,7 @@ class Actions:
                 self.user_name, self.user_id,
                 "\n".join(["\t* {}:  {}".format(day, get_day_info(self.user_id, day)) for day in days])
             )
-            self.slackhelper.post_message(self, text_detail, self.user_id)
+            self.slackhelper.post_message(text_detail, self.user_id)
         t = threading.Thread(target=wrap)
         t.start()
         return "ok"
