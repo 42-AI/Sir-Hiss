@@ -66,7 +66,7 @@ def create_app(config_name):
 					response_body = {'text': actions.unregister()}
 
 				if command_text[0] == 'subject':
-					response_body = {'text': str(actions.subject(command_text))}
+					response_body = {'text': actions.subject(command_text)}
 				
 				if command_text[0] == 'correct':
 					response_body = {'text': actions.correction(command_text)}
@@ -79,6 +79,7 @@ def create_app(config_name):
 		except Exception as e:
 			response_body = {'text': str(e)}
 
+		response_body['ok'] = True
 		response = jsonify(response_body)
 		response.status_code = 200
 		return response
