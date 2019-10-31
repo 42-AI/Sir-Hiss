@@ -32,6 +32,7 @@ class SlackHelper:
 			channel = self.slack_channel 
 		return self.slack_client.api_call(
 			'files.upload',
+			token=self.slack_token,
 			filename=filename,
 			channels=channel,
 			file=open(filepath,'rb'),
