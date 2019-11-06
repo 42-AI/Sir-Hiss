@@ -77,30 +77,6 @@ Todo:
 
 """
 
-# MSG_HELPER = "HEY there... I am here to help you along your Python journey... You can summon me with one of the following commands:\n\
-# \t*/bootcamp_python register*       register to the Bootcamp\n\
-# \t*/bootcamp_python unregister*     unregister from the Bootcamp (your data will be lost)\n\
-# \t*/bootcamp_python subject dayXX*  request the subject for dayXX (day00-04)\n\
-# \t*/bootcamp_python correct dayXX*  ask for a correction on dayXX (day00-04)\n\
-# \t*/bootcamp_python info*           get information on your current Bootcamp advancement"
-
-# MSG_ERR_NBARG = "Incorrect number of argumentssss. Use only one argument to tell me what bootcamp day you are talking about. E.g. day00"
-# MSG_ERR_FMTARG = "Incorrect formatting. Here are the accepted argumentssss: {}"
-# MSG_NOT_LOGGED = "Error, no user logged"
-
-# MSG_NOT_REGISTERED = "You are not yet regissstered to the Python Bootcamp. Firsssst register through the 'register' command."
-# MSG_ALLREADY_REGISTERED = "You are already registered. Tsssss...."
-
-# MSG_REGISTRATION_SUCCESS = "You are now registered to the Python bootcamp. Congratssssss"
-# MSG_UNREGISTRATION_SUCCESS = "You have been unregistered from the Python Bootcamp. Ssssee you next time..."
-
-# MSG_NOT_AVAILABLE = "Not available now."
-# MSG_SUBJECT_SUCCESS = "There it is."
-# MSG_NOTDWL_SUBJECT = "You may only be corrected on days that you have completed. First download the {} ssssubject and work through the exercises."
-# MSG_ALREADY_INPOOL = "You are on the waiting lissssst.\nYou will be matched with the next bootcamper who requessssts a correction."
-# MSG_CORRECTIONMATCH_SUCCESS = "You have been matched with {} for a mutual correction! I will get both of you in touch"
-# MSG_ALREADY_MATCHED = "You have already been matched with {} for your correction of {}. You can reach out to ssssomeone else if you wish to receive more feedback."
-
 def mandatoryUserInfo(f):
     def wrapper(self, *args, **kwargs):
         if self.user_info is None:
@@ -172,6 +148,8 @@ class Actions:
         for row in self.sheet.get_all_records():
             if row["user_id"] == self.user_id: # and not environment.DEBUG:
                 return self.msg.allready_registered
+        if not self.schedule.can_register():
+            return self.msg.not_available
         # Update with user info
         self.sheet.insert_row([self.user_name, self.user_id], 2)
         return self.msg.registration_success
@@ -222,7 +200,7 @@ class Actions:
 
         def find_partner(column, requester_row):
             waiting_cells = self.sheet.findall("WAITING")
-            random.shuffle(waiting_cells)
+            # random.shuffle(waiting_cells)
             for cell in waiting_cells:
                 if cell.col == column and cell.row != requester_row :
                     return cell
