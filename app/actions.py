@@ -219,7 +219,9 @@ class Actions:
                 partner_user_id = self.sheet.cell(partner_cell.row, 2).value
                 partner_cell.value = self.user_name
                 requester_cell.value = partner_user_name
-                self.sheet.update_cells([requester_cell, partner_cell])
+                # self.sheet.update_cells([requester_cell, partner_cell])
+                self.sheet.update_cell(row, column, partner_user_name)
+                self.sheet.update_cell(partner_cell.row, column, self.user_name)
                 resp = self.slackhelper.introduce_correctors(self.user_id, partner_user_id, day, self.msg.match_message)
                 if resp['ok'] is False:
                     return resp['error']
