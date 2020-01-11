@@ -14,7 +14,7 @@ def main():
    slackhelper = SlackHelper()
    actions = Actions(slackhelper, user_info=user_info)
    print(actions.register())
-   print(actions.subject(["", "day01"]))
+   print(actions.subject(["", "day00"]))
    print(actions.unregister())
    print(actions.register())
    # # actions.notify_channel()

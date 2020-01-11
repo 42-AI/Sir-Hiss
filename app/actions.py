@@ -176,9 +176,9 @@ class Actions:
         if not self.schedule.can_fetchday(args[1]) and not environment.DEBUG:
             return self.msg.not_available
         day = args[1]
-        filename = "{}.pdf".format(day)
+        filename = f"{day}.zip"
         self.slackhelper.pdf_upload(
-            "app/assets/{}".format(filename),
+            f"app/assets/{filename}",
             filename,
             channel=self.user_id,
             title=day,
@@ -242,7 +242,7 @@ class Actions:
             elif status == 'WAITING':
                 return "Waiting for correction"
             else:
-                return "Corrected by {}".format(status)
+                return f"Corrected by {status}"
         
         days = [
                 'day00',

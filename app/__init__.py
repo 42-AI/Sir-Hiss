@@ -31,7 +31,6 @@ allowed_commands = [
 		'help',
 	]
 
-HELPER = 'Invalid Command Sent - `/bootcamp_python help` for available commands'
 
 def create_app(config_name):
 
@@ -44,6 +43,7 @@ def create_app(config_name):
 
 	@app.route('/bootcamp_python', methods=['POST'])
 	def sirhiss():
+		HELPER = 'Invalid Command Sent - `/bootcamp_python help` for available commands'
 		response_body={'text': HELPER}
 
 		command_text = request.data.get('text')
