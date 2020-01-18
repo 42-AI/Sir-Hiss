@@ -117,8 +117,7 @@ def correctDayArgument(f):
 
 class Actions:
     def __init__(self, slackhelper, user_info=None, bootcamp=None):
-        print(bootcamp)
-
+        self.bootcamp = bootcamp
         self.gappshelper = GappsHelper(bootcamp)
         self.schedule = ScheduleHelper(bootcamp)
         self.sheet = self.gappshelper.open_sheet()
@@ -180,7 +179,7 @@ class Actions:
         day = args[1]
         filename = f"{day}.zip"
         self.slackhelper.pdf_upload(
-            f"app/assets/{filename}",
+            f"app/assets/{self.bootcamp}/{filename}",
             filename,
             channel=self.user_id,
             title=day,
