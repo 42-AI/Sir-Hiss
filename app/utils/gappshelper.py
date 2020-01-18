@@ -40,7 +40,7 @@ class GappsHelper:
 
 	def open_sheet(self):
 		if self.bootcamp == "PYTHON":
-			sheet = self.client.open(get_env('GAPPS_SHEET_NAME')).sheet1
+			sheet = self.client.open(get_env('GAPPS_SHEET_NAME')).worksheet('sheet1')
 		elif self.bootcamp == "ML":
-			sheet = self.client.open(get_env('GAPPS_SHEET_NAME')).sheet2
+			sheet = self.client.open(get_env('GAPPS_SHEET_NAME')).worksheet('sheet2')
 		return sheet
