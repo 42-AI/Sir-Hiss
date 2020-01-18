@@ -2,12 +2,16 @@ from datetime import datetime, timezone, timedelta
 from config import get_env
 import json
 import pytz
+import os
 
 utc=pytz.UTC
 
 class ScheduleHelper:
-    def __init__(self):
-        with open(get_env('SETTING_FILE')) as f:
+    def __init__(self, bootcamp):
+        path = open(get_env('SETTING_FILE')).rsplit('/', 1)
+        filename = os.path.join(path[0], bootcamp, path[1])
+        
+        with open(filename) as f:
             data = json.load(f)["schedule"]
         self.registration = data["registration_date"]
         for k in self.registration.keys():

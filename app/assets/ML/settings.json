@@ -1,0 +1,54 @@
+{
+    "schedule": {
+        "registration_date": {
+            "start": "2012-01-17 08:42:00",
+            "end": "2020-01-22 23:42:00"
+        },
+        "days_starting_date": {
+            "00": "2020-01-17 08:42:00",
+            "01": "2020-01-21 08:42:00",
+            "02": "2020-01-22 08:42:00",
+            "03": "2020-01-23 08:42:00",
+            "04": "2020-01-17 08:42:00"
+        },
+        "start_date": "2020-01-20 08:42:00"
+    },
+    "lang": {
+        "en": {
+            "helper": "HEY there... I am here to help you along your Machine Learning journey... You can summon me with one of the following commands:\n```\t*/bootcamp_ml register*       register to the Bootcamp\n\t*/bootcamp_ml unregister*     unregister from the Bootcamp (your data will be lost)\n\t*/bootcamp_ml subject dayXX*  request the subject for dayXX (day00-04)\n\t*/bootcamp_ml correct dayXX*  ask for a correction on dayXX (day00-04)\n\t*/bootcamp_ml info*           get information on your current Bootcamp advancement```",
+            "err_nbarg": "Incorrect number of argumentssss. Use only one argument to tell me what bootcamp day you are talking about. E.g. day00",
+            "err_fmtarg": "Incorrect formatting. Here are the accepted argumentssss: {}",
+            "not_logged": "Error, no user logged",
+            "not_registered": "You are not yet regissstered to the Machine Learning Bootcamp. Firsssst register through the 'register' command.",
+            "allready_registered": "You are already registered. Tsssss....",
+            "registration_success": "You are now registered to the Machine Learning bootcamp. Congratssssss",
+            "unregistration_success": "You have been unregistered from the Machine Learning Bootcamp. Ssssee you next time...",
+            "not_available": "Not available now.",
+            "subject_success": "There it is.",
+            "notdwl_subject": "You may only be corrected on days that you have completed. First download the {} ssssubject and work through the exercises.",
+            "already_inpool": "You are on the waiting lissssst.\nYou will be matched with the next bootcamper who requessssts a correction.",
+            "correctionmatch_success": "You have been matched with {} for a mutual correction! I will get both of you in touch",
+            "already_matched": "You have already been matched with {} for your correction of {}. You can reach out to ssssomeone else if you wish to receive more feedback.",
+            "info": "Here is your current Bootcamp advancement information.\nUsername: {}\nID:[{}]\n{}",
+		    "match_message": "Hey there! You two have been matched together for the correction of {}!\nThis is a mutual correction, so you will both review your patner's code and discussssss your solutions.\nBe very nice to your partner because I will only provide you with one for thisss day...\nI'll let you sschedule a meeting time..."
+        },
+        "fr": {
+            "helper": "Hey sssalut... Je suis icccii pour t'aider tout du long de la journée de Machine Learning... Tu peux m'appeler avec les commandes sssuivantes:\n```\t*/bootcamp_ml register*       t'enregissstre au bootcamp Machine Learning\n\t*/bootcamp_ml unregister*     te desinsssssscrit du bootcamp Machine Learning (attention, cela supprimera tes données de maniere irreversible)\n\t*/bootcamp_ml subject dayXX*  pour obtenir les sssssssujets des days (day00-04)\n\t*/bootcamp_ml correct dayXX*  te fait matcher avec une perssssssonne pour vous corriger mutuellement (day00-04)\n\t*/bootcamp_ml info*           pour obtenir tes informations personnel d'avancement du bootcamp```",
+            "err_nbarg": "Nombre incorrecte de parametres. N'utilise qu'un seul argument pour me dire a quel jour du bootcamp tu fait référenccce. E.g. day00",
+            "err_fmtarg": "Erreur de formatage. Voiccci les arguments que j'acccepte: {}",
+            "not_logged": "Error, no user logged",
+            "not_registered": "Tu n'es pas encore inscrit au bootcamp Machine Learning. Commencccceee par t'inscrire via la commande 'register'.",
+            "allready_registered": "Tu es déjà inscrit au bootcamp. Tsssss....",
+            "registration_success": "Tu es maintenant bien inssscrit au bootcamp. Congratsss !!",
+            "unregistration_success": "Tu as bien été désinssscrit du bootcamp. A bientôt...",
+            "not_available": "Cette commande n'est pas encore disssponible.",
+            "subject_success": "Voiccci pour toi.",
+            "notdwl_subject": "Tu ne peux corriger que des days pour lesquels tu es deja inssscrit. Commenccce par telecharger le {} ssssujet et essaye de faire les exercices.",
+            "already_inpool": "Tu es déjà dans la liste d'attente.\nTu ssseras matché avec le prochain participant qui cherche une correctttttttttion.",
+            "correctionmatch_success": "Tu as bien été matché avec {} pour vous corriger mutuelement! Je vais vous mettre en contact. Tssssss !",
+            "already_matched": "Tu as déjà été matché avec {} pour la correctttion de {}. Mais tu peux toujours aller voir d'autres persssssssssonnes pour te faire evaluer.",
+            "info": "Voiccci tes informatttions d'avancement du bootcamp Machine Learning.\nUsername: {}\nID:[{}]\n{}",
+		    "match_message": "Sssalut! Je vous ai matché ensssemble pour le correctttion du {}!\nC'est une correctttion mutuel, donc vous allez tout les deux review votre pair et dissscuter .\nsoyez sympa avec votre partenaire car c'est le ssseul que nous vous attribuerons pour corriger ce day.\nJe vous laissse voir entre vous pour fixé un créneau de correctttion..."
+        }
+    }
+}

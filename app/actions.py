@@ -116,13 +116,17 @@ def correctDayArgument(f):
 
 
 class Actions:
-    def __init__(self, slackhelper, user_info=None):
-        self.gappshelper = GappsHelper()
-        self.schedule = ScheduleHelper()
+    def __init__(self, slackhelper, user_info=None, bootcamp=None):
+
+        assert bootcamp is not None
+        assert bootcamp is in ["PYTHON", "ML"]
+
+        self.gappshelper = GappsHelper(bootcamp)
+        self.schedule = ScheduleHelper(bootcamp)
         self.sheet = self.gappshelper.open_sheet()
         self.user_info = user_info
         self.slackhelper = slackhelper
-        self.msg = LangHelper('fr')
+        self.msg = LangHelper(lang='fr', bootcamp=bootcamp)
         self.user_name = (
             user_info["user"]["name"]
             if user_info is not None

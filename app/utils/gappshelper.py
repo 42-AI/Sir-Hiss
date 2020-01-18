@@ -8,11 +8,12 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 class GappsHelper:
 
-	def __init__(self):
+	def __init__(self, bootcamp):
 		# setup for google sheet - Google Drive API Instance
 		self.scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 		self.credentials = self.credentials_from_env(self.scope)
 		self.client = gspread.authorize(self.credentials)
+		self.bootcamp = bootcamp
 
 	def credentials_from_env(self, scopes):
 		keyfile_dict = {}
@@ -38,5 +39,8 @@ class GappsHelper:
 		return credential
 
 	def open_sheet(self):
-		sheet = self.client.open(get_env('GAPPS_SHEET_NAME')).sheet1
+		if self.bootcamp == "PYTHON":
+			sheet = self.client.open(get_env('GAPPS_SHEET_NAME')).sheet1
+		elif self.bootcamp == "ML":
+			sheet = self.client.open(get_env('GAPPS_SHEET_NAME')).sheet2
 		return sheet

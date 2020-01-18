@@ -42,7 +42,7 @@ def create_app(config_name):
 	app.logger.setLevel(logging.ERROR)
 
 	@app.route('/bootcamp_python', methods=['POST'])
-	def sirhiss():
+	def bootcamp_python():
 		HELPER = 'Invalid Command Sent - `/bootcamp_python help` for available commands'
 		response_body={'text': HELPER}
 
@@ -54,7 +54,47 @@ def create_app(config_name):
 			slack_uid = request.data.get('user_id')
 			slackhelper = SlackHelper()
 			slack_user_info = slackhelper.user_info(slack_uid)
-			actions = Actions(slackhelper, slack_user_info)
+			actions = Actions(slackhelper, slack_user_info, bootcamp="PYTHON")
+			
+			if command_text[0] not in allowed_commands:
+				response_body = {'text': HELPER}
+
+			if command_text[0] == 'register':
+				response_body = {'text': actions.register()}
+
+			if command_text[0] == 'unregister':
+				response_body = {'text': actions.unregister()}
+
+			if command_text[0] == 'subject':
+				response_body = {'text': actions.subject(command_text)}
+			
+			if command_text[0] == 'correct':
+				response_body = {'text': actions.correction(command_text)}
+			
+			if command_text[0] == 'info':
+				response_body = {'text': actions.info()}
+
+			if command_text[0] == 'help':
+				response_body = {'text': actions.help()}
+
+		response = jsonify(response_body)
+		response.status_code = 200
+		return response
+
+	@app.route('/bootcamp_ml', methods=['POST'])
+	def bootcamp_machinelearning():
+		HELPER = 'Invalid Command Sent - `/bootcamp_ml help` for available commands'
+		response_body={'text': HELPER}
+
+		command_text = request.data.get('text')
+		if command_text is not None:
+			
+			command_text = command_text.split(' ')
+
+			slack_uid = request.data.get('user_id')
+			slackhelper = SlackHelper()
+			slack_user_info = slackhelper.user_info(slack_uid)
+			actions = Actions(slackhelper, slack_user_info, bootcamp="ML")
 			
 			if command_text[0] not in allowed_commands:
 				response_body = {'text': HELPER}
