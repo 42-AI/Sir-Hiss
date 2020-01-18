@@ -118,9 +118,6 @@ def correctDayArgument(f):
 class Actions:
     def __init__(self, slackhelper, user_info=None, bootcamp=None):
 
-        assert bootcamp is not None
-        assert bootcamp is in ["PYTHON", "ML"]
-
         self.gappshelper = GappsHelper(bootcamp)
         self.schedule = ScheduleHelper(bootcamp)
         self.sheet = self.gappshelper.open_sheet()
