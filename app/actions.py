@@ -117,6 +117,7 @@ def correctDayArgument(f):
 
 class Actions:
     def __init__(self, slackhelper, user_info=None, bootcamp=None):
+        print(bootcamp)
 
         self.gappshelper = GappsHelper(bootcamp)
         self.schedule = ScheduleHelper(bootcamp)

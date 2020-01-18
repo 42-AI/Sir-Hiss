@@ -4,7 +4,7 @@ import json
 
 class LangHelper:
     def __init__(self, lang='en', bootcamp=""):
-        path = open(get_env('SETTING_FILE')).rsplit('/', 1)
+        path = get_env('SETTING_FILE').rsplit('/', 1)
         filename = os.path.join(path[0], bootcamp, path[1])
 
         with open(filename) as f:
