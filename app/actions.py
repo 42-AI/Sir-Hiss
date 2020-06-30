@@ -283,7 +283,8 @@ Pour toutes questions spécifiques, nos *membres du CA* sont là pour toi ! :\n\
     - *Président* : Amric Trudel (@atrudel)\n\
     - *Vice Président* : Maxime Choulika (@cmaxime)\n\
     - *Trésorier - Community Manager* : Guillaume Ozserttas (@gozsertt)\n\
-    - *Secrétaire - Partenariats* : Myriam Benzarti (@mybenzar)"
+    - *Secrétaire* : Pierre Peigné (@ppeigne)\n\
+    - *Partenariats - Evénements* : Nathan Lafarge (@nlafarge)"
 
 
         
